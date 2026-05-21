@@ -136,7 +136,7 @@ export const autoRenameTopic = async (assistant: Assistant, topicId: string) => 
 
     const applyTopicName = (name: string) => {
       const data = { ...topic, name } as Topic
-      if (topic.id === _activeTopic.id) {
+      if (_activeTopic && _setActiveTopic && topic.id === _activeTopic.id) {
         _setActiveTopic(data)
       }
       store.dispatch(updateTopic({ assistantId: assistant.id, topic: data }))

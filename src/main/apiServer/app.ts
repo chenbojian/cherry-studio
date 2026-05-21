@@ -8,6 +8,7 @@ import { authMiddleware } from './middleware/auth'
 import { errorHandler } from './middleware/error'
 import { setupOpenAPIDocumentation } from './middleware/openapi'
 import { agentsRoutes } from './routes/agents'
+import { assistantsRouter } from './routes/assistants'
 import { channelsRouter } from './routes/channels'
 import { chatRoutes } from './routes/chat'
 import { clawMcpRoutes } from './routes/claw-mcp'
@@ -139,7 +140,11 @@ app.get('/', (_req, res) => {
       agent_sessions: 'GET /v1/agents/:agentId/sessions',
       session_messages: 'GET /v1/agents/:agentId/sessions/:sessionId/messages',
       knowledge_bases: 'GET /v1/knowledge-bases',
-      knowledge_search: 'POST /v1/knowledge-bases/search'
+      knowledge_search: 'POST /v1/knowledge-bases/search',
+      assistants: 'GET /v1/assistants',
+      assistant_topics: 'GET /v1/assistants/:assistantId/topics',
+      topic_chat: 'POST /v1/assistants/:assistantId/topics/:topicId/chat',
+      topic_messages: 'GET /v1/assistants/:assistantId/topics/:topicId/messages'
     }
   })
 })
@@ -159,6 +164,7 @@ apiRouter.use('/mcps', mcpRoutes)
 apiRouter.use('/messages', extendMessagesTimeout, messagesRoutes)
 apiRouter.use('/models', modelsRoutes)
 apiRouter.use('/agents', agentsRoutes)
+apiRouter.use('/assistants', assistantsRouter)
 apiRouter.use('/channels', channelsRouter)
 apiRouter.use('/tasks', tasksRouter)
 apiRouter.use('/claw', clawMcpRoutes)

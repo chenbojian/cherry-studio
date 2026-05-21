@@ -247,5 +247,8 @@ class DbService implements MessageDataSource {
 // Export singleton instance
 export const dbService = DbService.getInstance()
 
+// Expose for main process API server bridge (via webContents.executeJavaScript)
+;(window as any).dbService = dbService
+
 // Also export class for testing purposes
 export { DbService }
